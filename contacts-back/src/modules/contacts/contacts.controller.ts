@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ContactsService } from './contacts.service';
 import { CreateContactDto } from './dto/create-contact.dto';
 
@@ -14,5 +14,10 @@ export class ContactsController {
   @Get()
   findAll() {
     return this.contactsService.findAll();
+  }
+
+  @Get(':id')
+  findeOne(@Param('id') id: string) {
+    return this.contactsService.findOne(id);
   }
 }
