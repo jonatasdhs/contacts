@@ -10,11 +10,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id String @id
-  name String
-  email String @unique
-  password String
+  id        String    @id
+  name      String
+  email     String    @unique
+  password  String
+  createdAt DateTime  @default(now())
+  Contact   Contact[]
+
+  @@map("users")
+}
+
+model Contact {
+  id        String   @id
+  name      String
+  email     String
   createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+
+  @@map("contacts")
 }
