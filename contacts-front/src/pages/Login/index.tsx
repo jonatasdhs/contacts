@@ -21,7 +21,7 @@ export const Login = () => {
             <StForm>
                 <h2>Login</h2>
                 <form onSubmit={handleSubmit(loginUser)}>
-                    <label htmlFor="">Emailsilasdiashduasd</label>
+                    <label htmlFor="">Email</label>
                     <StInput type="email" id="email" {...register('email')} />
 
                     <label htmlFor="">Password</label>
