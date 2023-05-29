@@ -6,6 +6,20 @@ export const StDiv = styled.div`
     background-color: var(--color-blue-1);
     border-radius: 8px;
     padding: 20px;
+
+    & > div {
+        display: flex;
+        justify-content: space-between;
+        & > button {
+            background-color: var(--color-gray-0);
+            width: 24px;
+            height: 24px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
 `
 
 export const StUser = styled.div`

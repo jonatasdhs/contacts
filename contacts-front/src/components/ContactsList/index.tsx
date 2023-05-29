@@ -1,6 +1,6 @@
 import { useContacts } from "../../hooks/useContacts"
 import { StList } from "../../pages/Dashboard/style"
-import { iContacts, iUser } from "../../providers/ContactsProvider"
+import { iContacts } from "../../providers/ContactsProvider"
 
 export const ContactsList = () => {
     const {contacts} = useContacts()
