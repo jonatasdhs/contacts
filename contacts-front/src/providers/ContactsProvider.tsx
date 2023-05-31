@@ -93,6 +93,12 @@ export const ContactsProvider = ({children}: iProviderProps) => {
         }
     }
 
+    const deleteContact = async () => {
+        try {
+            
+        }
+    }
+
     return (
         <ContactsContext.Provider value={{contacts, modal, setModal, addContact}}>
             {children}
