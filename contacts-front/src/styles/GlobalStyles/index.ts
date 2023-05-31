@@ -36,6 +36,10 @@ export const GlobalStyle = createGlobalStyle`
         background-color: transparent;
         border: transparent;
     }
+
+    .react_icons {
+        width: 80px;
+    }
 `;
 
 export const Container = styled.main`

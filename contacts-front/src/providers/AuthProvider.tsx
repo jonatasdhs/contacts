@@ -15,8 +15,6 @@ interface iContextProps {
     loading: boolean
 }
 
-
-
 export const AuthContext = createContext({} as iContextProps)
 
 export const AuthProvider = ({children}: iProviderProps) => {
@@ -37,6 +35,7 @@ export const AuthProvider = ({children}: iProviderProps) => {
 
     const loginUser = async (data: LoginData) => {
         try {
+            setLoading(true)
             const response = await api.post("/login", data)
 
             const { token } = response.data
@@ -49,18 +48,24 @@ export const AuthProvider = ({children}: iProviderProps) => {
         } catch (error) {
             console.log(error);
             
+        } finally {
+            setLoading(false)
         }
     }
 
     const registerUser = async (data: RegisterData) => {
+        const newData = {...data, phone: parseInt(data.phone)}
         try {
-            await api.post("/users", data)
+            setLoading(true)
+            await api.post("/users", newData)
             setTimeout(() => {
-                navigate('/login')
+                navigate('/')
             }, 1000)
         } catch(error) {
             const currentError = error as AxiosError<string>
             console.log(currentError);
+        } finally {
+            setLoading(false)
         }
     } 
 
