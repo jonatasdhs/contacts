@@ -26,7 +26,7 @@ export const AuthProvider = ({children}: iProviderProps) => {
 
         if(!token) {
             setLoading(false)
-            return
+            navigate('/')
         }
 
         api.defaults.headers.common.authorization = `Bearer ${token}`
