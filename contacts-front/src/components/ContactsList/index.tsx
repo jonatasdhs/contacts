@@ -4,7 +4,6 @@ import { iContacts } from "../../providers/ContactsProvider"
 
 export const ContactsList = () => {
     const {contacts} = useContacts()
-    console.log(contacts)
     return (
         <StList>
             {contacts.contacts.map((contact: iContacts) => {
