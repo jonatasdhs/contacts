@@ -6,10 +6,11 @@ import { StForm } from "./style"
 import { Container } from "../../styles/GlobalStyles"
 import { StInput } from "../../styles/inputs"
 import { StButton } from "../../styles/buttons"
+import { useNavigate } from "react-router-dom"
 
 export const Login = () => {
     const { loginUser } = useAuth()
-
+    const navigate = useNavigate()
     const { register, handleSubmit } = useForm<LoginData>({
         resolver: zodResolver(schema)
     })
@@ -28,6 +29,10 @@ export const Login = () => {
                     <StInput type="password" id="password" {...register('password')} />
 
                     <StButton buttonSize="default" buttonColor="success" type="submit">Login</StButton>
+                    <div>
+                        <p>Do not have an account?</p>
+                        <StButton onClick={(() => navigate('/register'))} buttonSize="medium" buttonColor="gray" type="button">Register</StButton>
+                    </div>
                 </form>
             </StForm>
         </Container>

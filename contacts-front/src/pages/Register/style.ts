@@ -18,4 +18,17 @@ export const StForm = styled.div`
         gap: 10px;
         height: 100%;
     }
+
+    & > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+
+            & > button {
+                margin: 8px;
+                width: 100%;
+            }
+        }
 `

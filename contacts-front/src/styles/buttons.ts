@@ -2,7 +2,7 @@ import styled, {css} from "styled-components";
 
 interface iButton {
     buttonSize?: "default" | "medium"
-    buttonColor?: "primary" | "success"
+    buttonColor?: "primary" | "success" | "gray"
   }
 
 export const StButton = styled.button`
@@ -53,6 +53,13 @@ ${({ buttonColor }: iButton) => {
                 border-color: var(--color-gray-100);
                 color: var(--color-gray-0);
             `
+        case "gray":
+            return css`
+              background-color: var(--color-gray-50);
+              border-color: var(--color-gray-100);
+              color: var(--color-gray-0);
+            `
+          
         // no default
     }
   }}
