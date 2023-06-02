@@ -3,21 +3,19 @@ import { Contact } from "../../entities/contacts.entity"
 import { AppDataSource } from "../../data-source"
 import { User } from "../../entities/users.entity"
 import { AppError } from "../../errors"
+import { contactsManySchema } from "../../schemas/contacts.schema"
 
-export const readContactsService = async (id: number) => {
+export const readContactsService = async (userId: number) => {
     const contactsRepo: Repository<Contact> = AppDataSource.getRepository(Contact)
     const userRepo: Repository<User> = AppDataSource.getRepository(User)
 
-    const user: User | null = await userRepo.findOne({
-        where: { id: id},
-        relations: {
-            contacts: true,
-        },
+    /* const user: User[] | null = await userRepo.createQueryBuilder("users")
+    .leftJoinAndSelect("users.contacts", "contacts", "users.id = :userId", {userId})
+    .getMany() */
 
-    })
+    const contacts: Contact[] | null = await contactsRepo.createQueryBuilder("contacts")
+    .where("contacts.userId = :userId", {userId})
+    .getMany()
 
-    if(!user) throw new AppError("User not found!", 404)
-
-    return user
-
+    return contacts /* contactsManySchema.parse(contacts) */
 }

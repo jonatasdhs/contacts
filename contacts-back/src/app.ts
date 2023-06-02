@@ -5,10 +5,12 @@ import { userRoutes } from './routes/user.routes'
 import cors from 'cors'
 import { loginRoutes } from './routes/login.routes'
 import { contactsRoutes } from './routes/contact.routes'
+import swaggerUi from 'swagger-ui-express'
 
 export const app: Application = express()
 
 app.use(cors())
+
 
 app.use(express.json())
 
