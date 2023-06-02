@@ -11,4 +11,6 @@ export const contactsReturnSchema = contactsSchema.extend({
     createdAt: z.string()
 })
 
+export const contactsUpdateSchema = contactsSchema.partial()
+
 export const contactsManySchema = contactsReturnSchema.array()
