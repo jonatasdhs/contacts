@@ -10,7 +10,14 @@ export const StDiv = styled.div`
     & > div {
         display: flex;
         justify-content: space-between;
-        & > button {
+
+        & > div {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 15px;
+        }
+        & button {
             background-color: var(--color-gray-0);
             width: 24px;
             height: 24px;

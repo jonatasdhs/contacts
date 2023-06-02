@@ -6,9 +6,9 @@ export const ContactsList = () => {
     const {contacts} = useContacts()
     return (
         <StList>
-            {contacts.contacts.map((contact: iContacts) => {
+            {contacts.map((contact: iContacts) => {
                 return ( 
-                    <li key={contact.name}>
+                    <li key={contact.id}>
                         <h3>Nome: {contact.name}</h3>
                         <div>
                             <p>Email: {contact.email}</p>

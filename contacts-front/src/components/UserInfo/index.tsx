@@ -1,13 +1,13 @@
 import { useContacts } from "../../hooks/useContacts"
-import { StDiv, StUser } from "../../pages/Dashboard/style"
+import { StUser } from "../../pages/Dashboard/style"
 
 export const UserInfo = () => {
-    const {contacts} = useContacts()
+    const {user} = useContacts()
     return(
         <StUser>
-            <h3>Nome: {contacts.name}</h3>
-            <p>Email: {contacts.email}</p>
-            <p>Telefone: {contacts.phone}</p>
+            <h3>Nome: {user.name}</h3>
+            <p>Email: {user.email}</p>
+            <p>Telefone: {user.phone}</p>
         </StUser>
     )
 }

@@ -12,6 +12,7 @@ interface iProviderProps {
 interface iContextProps {
     loginUser: (data: LoginData) => void;
     registerUser: (data: RegisterData) => void;
+    logoutUser: () => void
     loading: boolean
 }
 
@@ -69,8 +70,13 @@ export const AuthProvider = ({children}: iProviderProps) => {
         }
     } 
 
+    const logoutUser = () => {
+        localStorage.removeItem("@TOKEN")
+        navigate('/')
+    }
+
     return(
-        <AuthContext.Provider value={{loginUser, registerUser, loading}}>
+        <AuthContext.Provider value={{loginUser, registerUser, loading, logoutUser}}>
             {children}
         </AuthContext.Provider>
     )
