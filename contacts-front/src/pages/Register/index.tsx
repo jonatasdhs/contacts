@@ -7,8 +7,6 @@ import { StForm } from './style'
 import { StError, StInput } from '../../styles/inputs'
 import { StButton } from '../../styles/buttons'
 import { useNavigate } from 'react-router-dom'
-import {toast} from 'react-toastify'
-
 
 export const Register = () => {
     const { registerUser } = useAuth()

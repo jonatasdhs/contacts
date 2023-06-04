@@ -5,7 +5,7 @@ import { ModalContainer } from "./style"
 import { GrClose } from "react-icons/gr"
 import { useContacts } from "../../hooks/useContacts"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ContactRequest, contactData, contactRequest, schema } from "../../pages/Dashboard/validate"
+import { ContactRequest, contactRequest } from "../../pages/Dashboard/validate"
 
 export const Modal = () => {
     const {register, handleSubmit, formState: {
