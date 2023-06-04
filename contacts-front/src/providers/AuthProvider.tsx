@@ -37,7 +37,7 @@ export const AuthProvider = ({children}: iProviderProps) => {
         }
         const decodedToken: any = decodeToken(token)
         setUser(decodedToken.sub)
-        
+
         api.defaults.headers.common.authorization = `Bearer ${token}`
         setLoading(false)
     }, [])
@@ -56,8 +56,8 @@ export const AuthProvider = ({children}: iProviderProps) => {
                 navigate('dashboard')
             }, 1000);
         } catch (error) {
-            console.log(error);
-            
+            const currentError = error as AxiosError<string | any>
+            toast.error(currentError.response?.data.message)
         } finally {
             setLoading(false)
         }
