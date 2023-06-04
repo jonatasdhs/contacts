@@ -3,9 +3,16 @@ import { StList } from "../../pages/Dashboard/style"
 import { iContacts } from "../../providers/ContactsProvider"
 import { api } from "../../services/api"
 import { decodeToken } from "react-jwt"
+import { useContacts } from "../../hooks/useContacts"
+import { MdDeleteOutline } from 'react-icons/md'
 
 export const ContactsList = () => {
     const [contacts, setContact] = useState<iContacts[]>([])
+    const {deleteContact} = useContacts()
+
+    const style = {
+        fontSize: "2em"
+    }
 
     useEffect(() => {
         const loadContacts = async () => {
@@ -25,11 +32,14 @@ export const ContactsList = () => {
         <StList>
             {contacts.map((contact: iContacts) => {
                 return ( 
-                    <li key={contact.id}>
+                    <li id={String(contact.id)} key={contact.id}>
                         <h3>{contact.name}</h3>
                         <div>
                             <p>Email: {contact.email}</p>
                             <p>Telefone: {contact.phone}</p>
+                        </div>
+                        <div>
+                            <button onClick={(() => deleteContact(contact.id))}><MdDeleteOutline style={style}/></button>
                         </div>
                     </li>
                 )

@@ -13,7 +13,7 @@ interface iContextProps {
     modal: boolean
     setModal: Dispatch<SetStateAction<boolean>>
     addContact: (data: ContactRequest) => void
-    user: iUser
+    deleteContact: (contactId: number) => void
 }
 
 export interface iContacts {
@@ -33,23 +33,16 @@ export interface iUser {
 export const ContactsContext = createContext({} as iContextProps)
 
 export const ContactsProvider = ({children}: iProviderProps) => {
-    const [userId, setUserId] = useState()
     const {loading, setLoading} = useAuth()
     const [modal, setModal] = useState(false)
-    const [user, setUser] = useState<iUser>({
-        id: 5,
-        name: "asd",
-        email: "mail@mail.com",
-        phone: 78984654
-    })
     const [contacts, setContacts] = useState<iContacts[]>([])
 
-    const token = localStorage.getItem("@TOKEN")
-
-
+    
+    
     const addContact = async (data: ContactRequest) => {
         try {
             setLoading(true)
+            const token = localStorage.getItem("@TOKEN")
             const decodedToken: any = decodeToken(token!)
             const newData = {...data, phone: parseInt(data.phone)}
             const newContact: iContacts = await api.post(`/contacts/${decodedToken.sub}`, newData, {
@@ -67,8 +60,24 @@ export const ContactsProvider = ({children}: iProviderProps) => {
         }
     }
 
+    const deleteContact = async (contactId: number) => {
+        try {
+            setLoading(true)
+            const token = localStorage.getItem("@TOKEN")
+            await api.delete(`/contacts/${contactId}`), {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        } catch(err) {
+            console.log(err)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     return (
-        <ContactsContext.Provider value={{user, contacts, modal, setModal, addContact}}>
+        <ContactsContext.Provider value={{contacts, modal, setModal, addContact, deleteContact}}>
             {children}
         </ContactsContext.Provider>
     )
