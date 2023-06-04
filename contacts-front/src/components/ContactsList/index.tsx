@@ -10,10 +10,6 @@ export const ContactsList = () => {
     const [contacts, setContact] = useState<iContacts[]>([])
     const {deleteContact} = useContacts()
 
-    const style = {
-        fontSize: "2em"
-    }
-
     useEffect(() => {
         const loadContacts = async () => {
             const token = localStorage.getItem("@TOKEN")
@@ -39,7 +35,7 @@ export const ContactsList = () => {
                             <p>Telefone: {contact.phone}</p>
                         </div>
                         <div>
-                            <button onClick={(() => deleteContact(contact.id))}><MdDeleteOutline style={style}/></button>
+                            <button onClick={(() => deleteContact(contact.id))}><MdDeleteOutline fontSize="2em"/></button>
                         </div>
                     </li>
                 )
