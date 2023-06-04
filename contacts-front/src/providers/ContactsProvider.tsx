@@ -71,7 +71,8 @@ export const ContactsProvider = ({children}: iProviderProps) => {
                 }
             }
         } catch(err) {
-            console.log(err)
+            const getContacts = contacts.filter((contact) => contact.id !== contactId)
+            setContacts(getContacts)
         } finally {
             setLoading(false)
         }
