@@ -21,14 +21,9 @@ export const StForm = styled.div`
 
     & > div {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            flex-direction: row;
+            justify-content: space-between;
             align-items: center;
             width: 100%;
-
-            & > button {
-                margin: 8px;
-                width: 100%;
-            }
         }
 `

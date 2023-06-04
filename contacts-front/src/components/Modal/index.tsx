@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 import { StButton } from "../../styles/buttons"
-import { StInput } from "../../styles/inputs"
+import { StError, StInput } from "../../styles/inputs"
 import { ModalContainer } from "./style"
 import { GrClose } from "react-icons/gr"
 import { useContacts } from "../../hooks/useContacts"
@@ -26,15 +26,15 @@ export const Modal = () => {
                 <form onSubmit={handleSubmit(addContact)}>
                     <label htmlFor="">Nome</label>
                     <StInput type="text" {...register("name")} />
-                    <span>{errors.name?.message}</span>
+                    <StError>{errors.name?.message}</StError>
 
                     <label htmlFor="">Email</label>
                     <StInput type="text" {...register("email")} />
-                    <span>{errors.email?.message}</span>
+                    <StError>{errors.email?.message}</StError>
 
                     <label htmlFor="">Telefone</label>
                     <StInput type="text" {...register("phone")}/>
-                    <span>{errors.phone?.message}</span>
+                    <StError>{errors.phone?.message}</StError>
 
                     <StButton buttonSize="default" buttonColor="success" type="submit">Adicionar</StButton>
                 </form>

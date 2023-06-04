@@ -16,3 +16,10 @@ export const StInput = styled.input`
 
 
 `
+
+export const StError = styled.span`
+    color: white;
+    padding-left: 8px;
+    font-size: 12px;
+
+`
