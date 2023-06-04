@@ -5,9 +5,9 @@ import { updateContactsService } from "../../services/contacts/updateContacts.se
 
 export const updateContactController = async (req: Request, res: Response): Promise<Response> => {
     const data: IContactsUpdate = req.body
-    const id: number = parseInt(req.params.id)
+    const userId: number = req.user.id
 
-    const contact = await updateContactsService(id, data)
+    const contact = await updateContactsService(userId, data)
 
     return res.status(200).json(contact)
 }

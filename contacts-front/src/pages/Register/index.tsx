@@ -6,11 +6,8 @@ import { Container } from '../../styles/GlobalStyles'
 import { StForm } from './style'
 import { StInput } from '../../styles/inputs'
 import { StButton } from '../../styles/buttons'
-import { useNavigate } from 'react-router-dom'
 export const Register = () => {
     const { registerUser } = useAuth()
-    const navigate = useNavigate()
-
     const { register, handleSubmit, formState: {
         errors
     } } = useForm<RegisterData>({
@@ -36,10 +33,6 @@ export const Register = () => {
 
                     <StButton buttonSize="default" buttonColor="success" type="submit">Register</StButton>
                 </form>
-                <div>
-                    <p>Already have an account?</p>
-                    <StButton onClick={(() => navigate("/"))} buttonSize="medium" buttonColor="gray" type="button">Login</StButton>
-                </div>
             </StForm>
         </Container>
     )

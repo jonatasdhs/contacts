@@ -7,4 +7,7 @@ export const schema = z.object({
     name: z.string()
 })
 
+export const contactRequest = schema.omit({id: true})
+
+export type ContactRequest = z.infer<typeof contactRequest>
 export type contactData = z.infer<typeof schema>

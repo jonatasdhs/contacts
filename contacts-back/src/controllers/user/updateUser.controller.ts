@@ -3,8 +3,8 @@ import { IUserUpdate } from "../../interfaces/user.interface";
 import { updateUserService } from "../../services/user/updateUser.service";
 
 export const updateUserController = async (req: Request, res: Response):Promise<Response> => {
-    const userId: number = parseInt(req.params.id)
-    const newData: IUserUpdate =req.body
+    const userId: number = parseInt(req.params.userId)
+    const newData: IUserUpdate = req.body
 
     const user = await updateUserService(newData, userId)
 

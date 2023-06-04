@@ -1,4 +1,4 @@
-import {createContext, useState, useEffect} from 'react'
+import {createContext, useState, useEffect, Dispatch, SetStateAction} from 'react'
 import {useNavigate} from 'react-router-dom'
 import { LoginData } from '../pages/Login/validate';
 import { api } from '../services/api';
@@ -14,6 +14,7 @@ interface iContextProps {
     registerUser: (data: RegisterData) => void;
     logoutUser: () => void
     loading: boolean
+    setLoading: Dispatch<SetStateAction<boolean>>
 }
 
 export const AuthContext = createContext({} as iContextProps)
@@ -32,7 +33,7 @@ export const AuthProvider = ({children}: iProviderProps) => {
 
         api.defaults.headers.common.authorization = `Bearer ${token}`
         setLoading(false)
-    }, [])
+    }, [loading])
 
     const loginUser = async (data: LoginData) => {
         try {
@@ -76,7 +77,7 @@ export const AuthProvider = ({children}: iProviderProps) => {
     }
 
     return(
-        <AuthContext.Provider value={{loginUser, registerUser, loading, logoutUser}}>
+        <AuthContext.Provider value={{setLoading, loginUser, registerUser, loading, logoutUser}}>
             {children}
         </AuthContext.Provider>
     )
