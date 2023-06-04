@@ -57,6 +57,7 @@ export const ContactsProvider = ({children}: iProviderProps) => {
             console.log(err)
         } finally {
             setModal(false)
+            setLoading(false)
         }
     }
 
