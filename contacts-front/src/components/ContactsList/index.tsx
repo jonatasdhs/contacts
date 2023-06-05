@@ -1,19 +1,41 @@
-import { useContacts } from "../../hooks/useContacts"
+import { useEffect, useState } from "react"
 import { StList } from "../../pages/Dashboard/style"
 import { iContacts } from "../../providers/ContactsProvider"
+import { api } from "../../services/api"
+import { decodeToken } from "react-jwt"
+import { useContacts } from "../../hooks/useContacts"
+import { MdDeleteOutline } from 'react-icons/md'
 
 export const ContactsList = () => {
-    const {contacts} = useContacts()
-    console.log(contacts)
+    const [contacts, setContact] = useState<iContacts[]>([])
+    const {deleteContact} = useContacts()
+
+    useEffect(() => {
+        const loadContacts = async () => {
+            const token = localStorage.getItem("@TOKEN")
+            const decodedToken: any = decodeToken(token!)
+            const {data} = await api.get(`/contacts/${decodedToken.sub}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            setContact(data.contacts)
+        }
+        loadContacts()
+    }, [])
+
     return (
         <StList>
-            {contacts.contacts.map((contact: iContacts) => {
+            {contacts.map((contact: iContacts) => {
                 return ( 
-                    <li key={contact.name}>
-                        <h3>Nome: {contact.name}</h3>
+                    <li id={String(contact.id)} key={contact.id}>
+                        <h3>{contact.name}</h3>
                         <div>
                             <p>Email: {contact.email}</p>
                             <p>Telefone: {contact.phone}</p>
+                        </div>
+                        <div>
+                            <button onClick={(() => deleteContact(contact.id))}><MdDeleteOutline fontSize="2em"/></button>
                         </div>
                     </li>
                 )

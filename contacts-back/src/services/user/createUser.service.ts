@@ -12,8 +12,9 @@ export const createUserService = async (userData: IUserRequest) => {
             email: userData.email
         }
     })
+
     if(emailExists) {
-        throw new AppError("User already exists", 409)
+        throw new AppError("User already exists!", 409)
     }
 
     const user: User = userRepository.create(userData)

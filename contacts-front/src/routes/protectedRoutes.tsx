@@ -1,12 +1,13 @@
-import { Outlet } from "react-router-dom"
+import { Navigate, Outlet } from "react-router-dom"
 import { useAuth } from "../hooks/useAuth"
 
 export const ProtectedRoutes = () => {
-    const {loading} = useAuth()
+    const {loading, user} = useAuth()
+
 
     if(loading) {
         return <div>Carregando...</div>
     }
 
-    return <Outlet/>
+    return user ? <Outlet/> : <Navigate to="/"/>
 }

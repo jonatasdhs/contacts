@@ -18,4 +18,12 @@ export const StForm = styled.div`
         gap: 10px;
         height: 100%;
     }
+
+    & > div {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
 `

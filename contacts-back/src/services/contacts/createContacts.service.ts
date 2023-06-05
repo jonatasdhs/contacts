@@ -6,6 +6,7 @@ import { User } from "../../entities/users.entity";
 import { AppError } from "../../errors";
 
 export const createContactsService = async (contactsData: IContactsRequest, userId: number) => {
+    console.log("Service:" + contactsData)
     const userRepository: Repository<User> = AppDataSource.getRepository(User)
     const contactRepository: Repository<Contact> = AppDataSource.getRepository(Contact)
     const user: User | null = await userRepository.findOneBy({id: userId})

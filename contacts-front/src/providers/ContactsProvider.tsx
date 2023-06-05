@@ -1,106 +1,85 @@
-import { Dispatch, ReactNode, SetStateAction, createContext, useEffect, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, createContext, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { api } from "../services/api";
 import { decodeToken } from "react-jwt";
-import { contactData } from "../pages/Dashboard/validate";
+import { ContactRequest } from "../pages/Dashboard/validate";
 
 interface iProviderProps {
     children: ReactNode
 }
 
 interface iContextProps {
-    contacts: iUser
+    contacts: iContacts[]
     modal: boolean
     setModal: Dispatch<SetStateAction<boolean>>
-    addContact: (data: contactData) => void
+    addContact: (data: ContactRequest) => void
+    deleteContact: (contactId: number) => void
 }
 
 export interface iContacts {
+    id: number
     name: string,
     phone: number,
     email: string
 }
 
 export interface iUser {
+    id: number
     name: string
     phone: number
     email: string
-    contacts: iContacts[]
 }
 
 export const ContactsContext = createContext({} as iContextProps)
 
 export const ContactsProvider = ({children}: iProviderProps) => {
-    const [userId, setUserId] = useState(1)
-    const {loading} = useAuth()
+    const {loading, setLoading} = useAuth()
     const [modal, setModal] = useState(false)
-    const [user, setUser] = useState()
-    const [contacts, setContacts] = useState({
-        name: "jon",
-        email: "jon@mail.com",
-        phone: 77894654,
-        contacts: [
-            {
-                name: "jose",
-                phone: 879456421,
-                email: "jose@mail.com"
-            }
-        ]
-    })
+    const [contacts, setContacts] = useState<iContacts[]>([])
 
-    useEffect(() => {
-        if(loading) return
-        const token = localStorage.getItem("@TOKEN")
-        if(!token) return
-        const decodedToken: any = decodeToken(token)
-        setUserId(decodedToken.sub)
-        
-        
-        const loadContacts = async () => {
-            try {
-                const token = localStorage.getItem("@TOKEN")
-                const {data} = await api.get(`/contacts/${userId}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-                const { contacts } = data
-                setContacts(contacts)
-                setUser(contacts)
-            } catch(error) {
-                console.log(error)
-            }
-        }
-        loadContacts()
-    }, [loading])
-
-    const addContact = async (data: contactData) => {
-        const newData = {...data, phone: parseInt(data.phone)}
+    
+    
+    const addContact = async (data: ContactRequest) => {
         try {
+            setLoading(true)
             const token = localStorage.getItem("@TOKEN")
-            await api.post(`/contacts/${userId}`, newData, {
+            const decodedToken: any = decodeToken(token!)
+            const newData = {...data, phone: parseInt(data.phone)}
+            const newContact: iContacts = await api.post(`/contacts/${decodedToken.sub}`, newData, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
-            const getContacts = contacts
-            getContacts.contacts = [...contacts.contacts, newData]
+            let getContacts = contacts
+            getContacts = [...contacts, newContact]
             setContacts(getContacts)
         } catch(err) {
             console.log(err)
         } finally {
             setModal(false)
+            setLoading(false)
         }
     }
 
-    const deleteContact = async () => {
+    const deleteContact = async (contactId: number) => {
         try {
-            
+            setLoading(true)
+            const token = localStorage.getItem("@TOKEN")
+            await api.delete(`/contacts/${contactId}`), {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        } catch(err) {
+            const getContacts = contacts.filter((contact) => contact.id !== contactId)
+            setContacts(getContacts)
+        } finally {
+            setLoading(false)
         }
     }
 
     return (
-        <ContactsContext.Provider value={{contacts, modal, setModal, addContact}}>
+        <ContactsContext.Provider value={{contacts, modal, setModal, addContact, deleteContact}}>
             {children}
         </ContactsContext.Provider>
     )

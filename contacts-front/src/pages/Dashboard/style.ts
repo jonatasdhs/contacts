@@ -10,7 +10,14 @@ export const StDiv = styled.div`
     & > div {
         display: flex;
         justify-content: space-between;
-        & > button {
+
+        & > div {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 15px;
+        }
+        & button {
             background-color: var(--color-gray-0);
             width: 24px;
             height: 24px;
@@ -39,13 +46,14 @@ export const StList = styled.ul`
     margin: 15px;
     border-radius: 8px;
     background-color: var(--color-gray-100);
-    overflow: auto;
+    overflow-y: overlay;
     gap: 2px;
+    max-height: 400px;
 
     & li {
         background-color: var(--color-gray-0);
         width: 100%;
-        padding: 8px;
+        padding: 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;

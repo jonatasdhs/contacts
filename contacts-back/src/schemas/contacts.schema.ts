@@ -10,3 +10,7 @@ export const contactsReturnSchema = contactsSchema.extend({
     id: z.number(),
     createdAt: z.string()
 })
+
+export const contactsUpdateSchema = contactsSchema.partial()
+
+export const contactsManySchema = contactsReturnSchema.array()
